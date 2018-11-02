@@ -100,9 +100,9 @@ namespace SPECTOR.EmbeddedFrontend {
                 this.editor.setTheme("ace/theme/monokai");
                 this.editor.getSession().setMode("ace/mode/glsl");
                 this.editor.setShowPrintMargin(false);
-                let timeoutId = -1;
+                let timeoutId : NodeJS.Timer = null;
                 this.editor.getSession().on("change", (e) => {
-                    if (timeoutId !== -1) {
+                    if (timeoutId !== null) {
                         clearTimeout(timeoutId);
                     }
 

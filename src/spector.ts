@@ -57,7 +57,7 @@ namespace SPECTOR {
         private captureMenu: ICaptureMenu;
         private resultView: IResultView;
         private retry: number;
-        private noFrameTimeout = -1;
+        private noFrameTimeout: NodeJS.Timer;
         private marker: string;
 
         constructor(private options: ISpectorOptions = {}) {
@@ -343,7 +343,7 @@ namespace SPECTOR {
             if (this.capturingContext) {
                 const capture = this.capturingContext.stopCapture();
                 if (capture.commands.length > 0) {
-                    if (this.noFrameTimeout > -1) {
+                    if (this.noFrameTimeout !== null) {
                         clearTimeout(this.noFrameTimeout);
                     }
                     this.triggerCapture(capture);
@@ -462,7 +462,7 @@ namespace SPECTOR {
 
         private onErrorInternal(error: string) {
             this.logger.error(error);
-            if (this.noFrameTimeout > -1) {
+            if (this.noFrameTimeout !== null) {
                 clearTimeout(this.noFrameTimeout);
             }
 
